@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: notova-backend:local
+    ports:
+      - '8787:8787'
+    environment:
+      NODE_ENV: production
+      PORT: '8787'
+      DATABASE_URL: /data/notova.sqlite
+      # Override these for any non-local use:
+      JWT_SECRET: ${JWT_SECRET:-dev-insecure-jwt-secret-change-me}
+      TOKEN_ENCRYPTION_KEY: ${TOKEN_ENCRYPTION_KEY:-ZGV2LW9ubHktMzItYnl0ZS1lbmNyeXB0aW9uLWtleSEhMTI=}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:8787}
+      APP_OAUTH_REDIRECT_SCHEME: ${APP_OAUTH_REDIRECT_SCHEME:-notova://oauth}
+      # Optional third-party OAuth creds (left empty -> integrations return 400).
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      NOTION_CLIENT_ID: ${NOTION_CLIENT_ID:-}
+      NOTION_CLIENT_SECRET: ${NOTION_CLIENT_SECRET:-}
+      SLACK_CLIENT_ID: ${SLACK_CLIENT_ID:-}
+      SLACK_CLIENT_SECRET: ${SLACK_CLIENT_SECRET:-}
+      SALESFORCE_CLIENT_ID: ${SALESFORCE_CLIENT_ID:-}
+      SALESFORCE_CLIENT_SECRET: ${SALESFORCE_CLIENT_SECRET:-}
+    volumes:
+      - notova-data:/data
+    restart: unless-stopped
+
+volumes:
+  notova-data:

@@ -1,0 +1,14 @@
+node_modules
+dist
+coverage
+drizzle
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.env
+.env.*
+!.env.example
+.git
+.github
+*.log
+test
